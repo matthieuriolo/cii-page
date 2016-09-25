@@ -1,0 +1,4 @@
+# ignoring temp mac file
+.DS_store
+*.mwb.bak
+*.mwb.beforefix
