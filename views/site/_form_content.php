@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use cii\widgets\Toggler;
+use cii\widgets\BrowserModal;
+use cii\helpers\FileHelper;
 
 if(Yii::$app->cii->package->setting('cii', 'multilanguage')) {
 ?>
@@ -15,4 +17,24 @@ if(Yii::$app->cii->package->setting('cii', 'multilanguage')) {
 <hr>
 <?php } ?>
 
-<?= $form->field($model, 'content')->textarea(['rows' => 40, 'data-controller' => 'tinymce']) ?>
+<?= BrowserModal::widget([
+    'id' => $imageId = uniqid(),
+    'mimeTypes' => FileHelper::$imageMimeTypes,
+]) ?>
+
+<?= BrowserModal::widget([
+    'id' => $mediaId = uniqid(),
+    'mimeTypes' => FileHelper::$videoMimeTypes,
+]) ?>
+
+<?= BrowserModal::widget([
+    'id' => $fileId = uniqid(),
+]) ?>
+
+<?= $form->field($model, 'content')->textarea([
+	'rows' => 40,
+	'data-controller' => 'tinymce',
+	'data-browser-image' => $imageId,
+	'data-browser-file' => $fileId,
+	'data-browser-media' => $mediaId,
+])->label(false) ?>
